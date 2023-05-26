@@ -1,0 +1,48 @@
+# MAIN CONFIG FILE
+# Example of plotting MF PAM data in C/FRadial
+
+# IMPORTANT: Adapt the paths to the actual location of your data and config files
+
+# call example:
+# main_process_data.py mf_pam_mtcy.txt --starttime 20210114234500 --endtime 20210114234500 --cfgpath ${PYRAD_COURSE_PATH}/config/processing/
+
+
+# Name of this configuration:
+# Will be used in product generation save path
+name STRING MF_PAM_MTCY
+
+# ---------------------------------------------------------
+#  Raw data pathes
+# ---------------------------------------------------------
+
+# Base path of the raw data.
+# Note: Must have a trailing '/'
+datapath STRING ${PYRAD_COURSE_PATH}/data/MF_PAG_PAM/MTCY/
+
+# Loading of saved datasets
+loadbasepath STRING STRING ${PYRAD_COURSE_PATH}/pyrad_products/
+loadname STRING MF_PAM_MTCY
+
+
+# --------------------------------------------
+# Output data
+# -----------------------------------------------
+saveimgbasepath STRING ${PYRAD_COURSE_PATH}/pyrad_products/
+
+# Output image format can be any accepted by Matplotlib
+# More than one output formats can be set
+imgformat STRARR 1
+    png
+
+# --------------------------------------------------------
+# configuration files pathes
+# --------------------------------------------------------
+
+# Base path of configuration files
+configpath STRING ${PYRAD_COURSE_PATH}/config/
+
+# Configuration of the radar location and approach direction
+locationConfigFile STRING ${PYRAD_COURSE_PATH}/config/processing/mf_pam_mtcy_loc.txt
+
+# Configuration of the product generation
+productConfigFile STRING ${PYRAD_COURSE_PATH}/config/processing/mf_pam_mtcy_prod.txt

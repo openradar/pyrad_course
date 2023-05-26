@@ -1,0 +1,51 @@
+# MAIN CONFIG FILE
+# Example of processing MF ODIM data
+
+# IMPORTANT: Adapt the paths to the actual location of your data and config files
+
+# call example:
+# main_process_data.py mf_odim_mtcy.txt --starttime 20210114000000 --endtime 20210114000000 --cfgpath ${PYRAD_COURSE_PATH}/config/
+
+# Name of this configuration:
+# Will be used in product generation save path
+name STRING MF_ODIM_MTCY
+
+# ---------------------------------------------------------
+#  Raw data pathes
+# ---------------------------------------------------------
+
+# Base path of the raw data.
+# Note: Must have a trailing '/'
+datapath STRING ${PYRAD_COURSE_PATH}/data/MF_ODIM/
+path_convention STRING ODIM
+
+# NWP path
+cosmopath STRING ${PYRAD_COURSE_PATH}/data/MF_ISO0/
+
+# Loading of saved datasets
+loadbasepath STRING ${PYRAD_COURSE_PATH}/pyrad_products/
+loadname STRING MF_ODIM_MTCY
+
+
+# --------------------------------------------
+# Output data
+# -----------------------------------------------
+saveimgbasepath STRING ${PYRAD_COURSE_PATH}/pyrad_products/
+
+# Output image format can be any accepted by Matplotlib
+# More than one output formats can be set
+imgformat STRARR 1
+    png
+
+# --------------------------------------------------------
+# configuration files pathes
+# --------------------------------------------------------
+
+# Base path of configuration files
+configpath STRING ${PYRAD_COURSE_PATH}/config/
+
+# Configuration of the radar location and approach direction
+locationConfigFile STRING ${PYRAD_COURSE_PATH}/config/processing/mf_odim_mtcy_loc.txt
+
+# Configuration of the product generation
+productConfigFile STRING ${PYRAD_COURSE_PATH}/config/processing/mf_odim_mtcy_prod.txt
