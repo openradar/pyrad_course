@@ -1,0 +1,49 @@
+#
+# main config file: gridding examples
+#
+
+# IMPORTANT: Adapt the paths to the actual location of your data and config files
+
+# call example:
+# main_process_data.py mf_pam_mtcy_grid.txt --starttime 20210114100000 --endtime 20210114120000 --cfgpath ${PYRAD_COURSE_PATH}/config/proc_examples/
+
+
+# Name of this configuration:
+# Will be used in product generation save path
+name STRING MF_PAM_MTCY
+
+# ---------------------------------------------------------
+#  Raw data pathes
+# ---------------------------------------------------------
+
+# Base path of the raw data.
+# Note: Must have a trailing '/'
+datapath STRING ${PYRAD_COURSE_PATH}/data/MF_CFRADIAL/MTCY/
+
+# Loading of saved datasets
+loadbasepath STRING STRING ${PYRAD_COURSE_PATH}/pyrad_products_ref/
+loadname STRING MF_PAM_MTCY
+
+
+# --------------------------------------------
+# Output data
+# -----------------------------------------------
+saveimgbasepath STRING ${PYRAD_COURSE_PATH}/pyrad_products_ref/
+
+# Output image format can be any accepted by Matplotlib
+# More than one output formats can be set
+imgformat STRARR 1
+    png
+
+# --------------------------------------------------------
+# configuration files pathes
+# --------------------------------------------------------
+
+# Base path of configuration files
+configpath STRING ${PYRAD_COURSE_PATH}/config/
+
+# Configuration of the radar location and approach direction
+locationConfigFile STRING ${PYRAD_COURSE_PATH}/config/proc_examples/mf_pam_mtcy_grid_loc.txt
+
+# Configuration of the product generation
+productConfigFile STRING ${PYRAD_COURSE_PATH}/config/proc_examples/mf_pam_mtcy_grid_prod.txt

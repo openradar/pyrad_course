@@ -1,0 +1,58 @@
+#
+# loc config file
+#
+
+# Radar Name
+RadarName STRING MTCY
+
+# Only for internal use
+RadarRes STRING	L
+
+# limits in the region to process
+elmax FLOAT 80
+
+# Names of the radar scans
+ScanList STRARR 1
+      PAM_67_data_  # masterscan: first scan of a volume
+      
+# scan strategy      
+# cycle 1: 90/5  /2.2/1.2/0.7/0.4
+# cycle 2:  7/3.9/2.2/1.2/0.7/0.4
+# cycle 3:  6/3  /2.2/1.2/0.7/0.4
+
+# Repetition time of the scans [min]
+ScanPeriod INT 15
+
+
+# Image config
+xsecImageConfig STRUCT 3
+   xsize      FLOAT  10.      # image size [inches] (default dots per inch (dpi):72)
+   ysize      FLOAT   5.      # image size [inches] (default dots per inch (dpi):72)
+   dpi        INT    72     # dots per inch (72 web quality, 300 print quality)
+
+gridMapImageConfig STRUCT 10
+   xsize      FLOAT  10.   # image size [inches] (default dots per inch (dpi):72)
+   ysize      FLOAT  8.   # image size [inches] (default dots per inch (dpi):72)
+   dpi        INT    72     # dots per inch (72 web quality, 300 print quality)
+   lonmin     FLOAT  6.7 # Min longitude [deg]
+   lonmax     FLOAT  7.3 # Max longitude [deg]
+   lonstep    FLOAT 0.1
+   latmin     FLOAT 47.5 # Min latitude [deg]
+   latmax     FLOAT 47.9 # Max latitude [deg]
+   latstep    FLOAT 0.1
+   exact_limits INT 1
+   mapres     STRING 110m  # map resolution (10m, 50m, 110m)
+   maps STRARR 10        # maps to overplot (cartopy)
+       countries
+       provinces
+       urban_areas
+       roads
+       railroads
+       coastlines
+       lakes
+       lakes_europe
+       rivers
+       rivers_europe
+       # relief
+
+# cartopy mapres: '110m', '50m', '10m'

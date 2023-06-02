@@ -1,0 +1,154 @@
+#
+# Product generation configuration
+#
+
+# List of datasets to generate.
+# The detailed specification of each dataset is given below.
+dataSetList STRARR 5
+    l0:grid
+    l1:dBuZ_grid
+    l1:uRhoHV_grid
+    l1:dBuZ_uRhoHV_grid
+    l1:dBuZ_grid_POI
+
+
+# ============================================================================
+#               vol2grid
+# ============================================================================
+grid STRUCT 12
+    type STRING VOL2GRID
+    datatype STRARR 2
+        MFCFRADIAL:dBuZ,D{%Y-%m-%d}-F{%Y%m%d%H%M}
+        MFCFRADIAL:uRhoHV,D{%Y-%m-%d}-F{%Y%m%d%H%M}
+    xmin FLOAT -20000
+    xmax FLOAT  20000
+    ymin FLOAT  20000
+    ymax FLOAT  60000
+    zmin FLOAT   1000
+    zmax FLOAT   5000
+    hres FLOAT   1000
+    vres FLOAT    250
+    MAKE_GLOBAL INT 1
+    SUBSTITUTE_OBJECT INT 1
+
+
+dBuZ_grid STRUCT 3
+    type STRING RAW_GRID
+    datatype STRING PROC:dBuZ
+    products STRUCT 1
+        HIST STRUCT 3
+            type STRING HISTOGRAM
+            voltype STRING dBuZ
+            step FLOAT 1.
+        SURFACE_l0_CONTOUR STRUCT 4
+            type STRING SURFACE_CONTOUR
+            voltype STRING dBuZ
+            level INT 0
+            contour_values FLTARR 1
+                30
+        SURFACE_l0 STRUCT 3
+            type STRING SURFACE_IMAGE
+            voltype STRING dBuZ
+            level INT 0
+        SURFACE_l0_RAW STRUCT 3
+            type STRING SURFACE_RAW
+            voltype STRING dBuZ
+            level INT 0
+        LAT STRUCT 4
+            type STRING LATITUDE_SLICE
+            voltype STRING dBuZ
+            lat FLOAT 47.7
+            lon FLOAT 6.8
+        LON STRUCT 4
+            type STRING LONGITUDE_SLICE
+            voltype STRING dBuZ
+            lat FLOAT 47.7
+            lon FLOAT 6.8
+        LATLON STRUCT 4
+            type STRING CROSS_SECTION
+            voltype STRING dBuZ
+            coord1 STRUCT 2
+                lat FLOAT 47.6
+                lon FLOAT 6.8
+            coord2 STRUCT 2
+                lat FLOAT 47.7
+                lon FLOAT 7.2
+
+uRhoHV_grid STRUCT 3
+    type STRING RAW_GRID
+    datatype STRING PROC:uRhoHV
+    products STRUCT 1
+        HIST STRUCT 5
+            type STRING HISTOGRAM
+            voltype STRING uRhoHV
+            step FLOAT 0.01
+            vmin FLOAT 0.3
+            vmax FLOAT 1.
+        SURFACE_l0 STRUCT 3
+            type STRING SURFACE_IMAGE
+            voltype STRING uRhoHV
+            level INT 0
+        SURFACE_l0_RAW STRUCT 3
+            type STRING SURFACE_RAW
+            voltype STRING uRhoHV
+            level INT 0
+        LAT STRUCT 4
+            type STRING LATITUDE_SLICE
+            voltype STRING uRhoHV
+            lat FLOAT 47.7
+            lon FLOAT 6.8
+        LON STRUCT 4
+            type STRING LONGITUDE_SLICE
+            voltype STRING uRhoHV
+            lat FLOAT 47.7
+            lon FLOAT 6.8
+        LATLON STRUCT 4
+            type STRING CROSS_SECTION
+            voltype STRING uRhoHV
+            coord1 STRUCT 2
+                lat FLOAT 47.6
+                lon FLOAT 6.8
+            coord2 STRUCT 2
+                lat FLOAT 47.7
+                lon FLOAT 7.2
+
+
+# ============================================================================
+#               overplot
+# ============================================================================
+dBuZ_uRhoHV_grid STRUCT 3
+    type STRING RAW_GRID
+    datatype STRARR 2
+        PROC:dBuZ
+        PROC:uRhoHV
+	products STRUCT 2
+        SURFACE_l0 STRUCT 5
+            type STRING SURFACE_CONTOUR_OVERPLOT
+            voltype STRING dBuZ
+            level INT 0
+            contourtype STRING uRhoHV
+            contour_values FLTARR 1
+                0.7
+        SURFACE_l0_OVERPLOT STRUCT 6
+            type STRING SURFACE_OVERPLOT
+            voltype_btm STRING dBuZ
+            voltype_top STRING uRhoHV
+            level_btm INT 0
+            level_top INT 0
+            alpha FLOAT 0.25
+
+# ============================================================================
+#               time series
+# ============================================================================
+dBuZ_grid_POI STRUCT 8
+    type STRING GRID_POINT_MEASUREMENT
+    datatype STRING MFCFRADIAL:dBuZ,D{%Y-%m-%d}-F{%Y%m%d%H%M}
+    single_point INT 1
+    latlon INT 1
+    lon FLOAT 7.35
+    lat FLOAT 47.75
+    alt FLOAT 1000
+    products STRUCT 1
+        TS STRUCT 2
+            type STRING PLOT_AND_WRITE_POINT
+            voltype STRING dBuZ

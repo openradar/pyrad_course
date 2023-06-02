@@ -1,5 +1,6 @@
-# LOCATION CONFIG FILE
-# Example of plotting MF PAM data in C/FRadial
+#
+# loc config file
+#
 
 # Radar Name
 RadarName STRING MTCY
@@ -7,11 +8,17 @@ RadarName STRING MTCY
 # Only for internal use
 RadarRes STRING	L
 
+# limits in the region to process
 elmax FLOAT 80
 
 # Names of the radar scans
 ScanList STRARR 1
       PAM_67_data_  # masterscan: first scan of a volume
+
+# scan strategy      
+# cycle 1: 90/5  /2.2/1.2/0.7/0.4
+# cycle 2:  7/3.9/2.2/1.2/0.7/0.4
+# cycle 3:  6/3  /2.2/1.2/0.7/0.4 
 
 # Repetition time of the scans [min]
 ScanPeriod INT 15
@@ -26,7 +33,6 @@ ppiImageConfig STRUCT 6
    ymin       FLOAT -100.0   # Min distance on vertical axis [km]
    ymax       FLOAT  100.0   # Max distance on vertical axis [km]
 
-# Image config
 rhiImageConfig STRUCT 6
    xsize      FLOAT   9.    # image size [inches]
    ysize      FLOAT   7.     # image size [inches]
@@ -35,7 +41,6 @@ rhiImageConfig STRUCT 6
    ymin       FLOAT  0.0   # Min distance on vertical axis [km]
    ymax       FLOAT 10.0   # Max distance on vertical axis [km]
 
-# Image config
 xsecImageConfig STRUCT 3
    xsize      FLOAT  10.      # image size [inches] (default dots per inch (dpi):72)
    ysize      FLOAT   5.      # image size [inches] (default dots per inch (dpi):72)
@@ -49,7 +54,7 @@ gridMapImageConfig STRUCT 10
    lonmax     FLOAT  7.3 # Max longitude [deg]
    lonstep    FLOAT 0.1
    latmin     FLOAT 47.5 # Min latitude [deg]
-   latmax     FLOAT 47.7 # Max latitude [deg]
+   latmax     FLOAT 47.9 # Max latitude [deg]
    latstep    FLOAT 0.1
    exact_limits INT 1
    mapres     STRING 110m  # map resolution (10m, 50m, 110m)

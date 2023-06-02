@@ -1,0 +1,101 @@
+#
+# Product generation configuration
+#
+
+# List of datasets to generate.
+# The detailed specification of each dataset is given below.
+dataSetList STRARR 9
+    dBuZ
+    dBZ
+    ZDR
+    RhoHV
+    PhiDP
+    V
+    KDP
+    PIA
+    hydroMF
+
+
+# ============================================================================
+#               raw data
+# ============================================================================
+dBuZ STRUCT 3
+    type STRING RAW
+    datatype STRING ODIM:dBuZ,D{%Y-%m-%d}-F{%Y%m%d%H%M00}
+    products STRUCT 1
+        PPI_EL00 STRUCT 3
+            type STRING PPI_IMAGE
+            voltype STRING dBuZ
+            anglenr INT 0
+            
+dBZ STRUCT 3
+    type STRING RAW
+    datatype STRING ODIM:dBZ,D{%Y-%m-%d}-F{%Y%m%d%H%M00}
+    products STRUCT 1
+        PPI_EL00 STRUCT 3
+            type STRING PPI_IMAGE
+            voltype STRING dBZ
+            anglenr INT 0
+
+ZDR STRUCT 3
+    type STRING RAW
+    datatype STRING ODIM:ZDR,D{%Y-%m-%d}-F{%Y%m%d%H%M00}
+    products STRUCT 1
+        PPI_EL00 STRUCT 3
+            type STRING PPI_IMAGE
+            voltype STRING ZDR
+            anglenr INT 0
+            
+RhoHV STRUCT 3
+    type STRING RAW
+    datatype STRING ODIM:RhoHV,D{%Y-%m-%d}-F{%Y%m%d%H%M00}
+    products STRUCT 1
+        PPI_EL00 STRUCT 3
+            type STRING PPI_IMAGE
+            voltype STRING RhoHV
+            anglenr INT 0
+            
+PhiDP STRUCT 3
+    type STRING RAW
+    datatype STRING ODIM:PhiDP,D{%Y-%m-%d}-F{%Y%m%d%H%M00}
+    products STRUCT 1
+        PPI_EL00 STRUCT 3
+            type STRING PPI_IMAGE
+            voltype STRING PhiDP
+            anglenr INT 0
+            
+V STRUCT 3
+    type STRING RAW
+    datatype STRING ODIM:V,D{%Y-%m-%d}-F{%Y%m%d%H%M00}
+    products STRUCT 1
+        PPI_EL00 STRUCT 3
+            type STRING PPI_IMAGE
+            voltype STRING V
+            anglenr INT 0
+            
+KDP STRUCT 3
+    type STRING RAW
+    datatype STRING ODIM:KDP,D{%Y-%m-%d}-F{%Y%m%d%H%M00}
+    products STRUCT 1
+        PPI_EL00 STRUCT 3
+            type STRING PPI_IMAGE
+            voltype STRING KDP
+            anglenr INT 0
+            
+PIA STRUCT 3
+    type STRING RAW
+    datatype STRING ODIM:PIA,D{%Y-%m-%d}-F{%Y%m%d%H%M00}
+    products STRUCT 1
+        PPI_EL00 STRUCT 3
+            type STRING PPI_IMAGE
+            voltype STRING PIA
+            anglenr INT 0
+            
+hydroMF STRUCT 3
+    type STRING RAW
+    datatype STRING ODIM:hydroMF,D{%Y-%m-%d}-F{%Y%m%d%H%M00}
+    products STRUCT 1
+        PPI_EL00 STRUCT 3
+            type STRING PPI_IMAGE
+            voltype STRING hydroMF
+            anglenr INT 0

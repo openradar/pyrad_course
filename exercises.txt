@@ -1,0 +1,189 @@
+Thinks to take into account to do these exercises:
+The list of keywords used to read each data file type can be found here:
+https://pyrad-mch.readthedocs.io/en/latest/io.html#pyrad.io.get_data
+
+The keyword used for each dataset processing, as well as the dataset family to which it corresponds
+can be found here:
+https://pyrad-mch.readthedocs.io/en/latest/proc.html#pyrad.proc.get_process_func
+
+The list of dataset generating functions can be found here:
+https://pyrad-mch.readthedocs.io/en/latest/proc.html#module-pyrad.proc
+
+The starting point to check which products can be generated for each dataset family is here:
+https://pyrad-mch.readthedocs.io/en/latest/prod.html
+
+To find the Pyrad keywords for each data field check function get_fieldname_pyart here:
+https://github.com/MeteoSwiss/pyrad/blob/master/src/pyrad_proc/pyrad/io/io_aux.py
+
+Solutions to the exercises can be found in the reference config file mentioned on top of each
+exercise
+
+
+1. Plotting radar volume data (reference config/proc_examples/mf_pam_mtcy_plot_vol.txt)
+=======================================================================================
+Modify config/processing/mf_pam_mtcy.txt to perform these exercises
+
+a) modify the prod config file to obtain a pseudo RHI image of the reflectivity at an azimuth
+angle of your preference. Hint: Use keyword PSEUDORHI_IMAGE of generate_vol_products
+
+b) modify the prod config file to obtain a B-SCOPE image of the reflectivity at an elevation of
+your preference. Hint: Use keyword BSCOPE_IMAGE of generate_vol_products
+
+c) modify the prod config file to get a histogram of the reflectivity over the entire radar volume.
+Hint: Use keyword HISTOGRAM of generate_vol_products
+
+d) modify the prod config file to get a CAPPI of the reflectivity at 2000. m. Hint: Use keyword
+CAPPI_IMAGE of generate_vol_products
+
+e) Add a dataset of type RAW that ingests reflectivity and RhoHV. Generate a PPI consisting on
+the reflectivity with the contour of RhoHV of values 0.7 on top. Hint: Use keyword
+PPI_COUNTOUR_OVERPLOT
+
+f) Add a dataset of type POINT_MEASUREMENT that ingests the reflectivity. Get a time series
+at a point with latitude 47.75, longitude 7.35 using the elevation at 0.7°. Plot the time series 
+using the keyword PLOT_AND_WRITE_POINT
+
+e) Add a dataset of type TIME_HEIGHT that ingests the reflectivity. Get a time series at the same
+lat/lon as in exercises f. Use TIME_RANGE to plot the data
+
+
+2. Gridding radar volume data (reference config/proc_examples/mf_pam_mtcy_grid.txt)
+=======================================================================================
+Modify config/processing/mf_pam_mtcy.txt to perform these exercises
+
+a) Grid the reflectivity and RhoHV data using VOL2GRID. Choose an area of your interest with
+dimensions 40x40 km, altitude between 1000 and 5000 m resolution and horizontal resolution of
+1000 m and vertical resolution of 250 m. Hint: you have to allow the use of the grid object in
+the next processing level by setting MAKE_GLOBAL and SUBSTITUTE_OBJECT
+
+b) Add a dataset of type RAW_GRID that ingests the reflectivity. Generate a surface image at
+level 0 (1000 m altitude). Hint: Use SURFACE_IMAGE of generate_grid_products
+
+c) Add the latitude and longitude slices at a point with latitude 47.7 and longitude 6.8. Hint:
+use LATITUDE_SLICE and LONGITUDE_SLICE of generate_grid_products
+
+d) Add a cross-section between point (6.8, 47.6) and (7.2, 47.7). Hint: use CROSS_SECTION
+
+e) Add a dataset of type RAW_GRID that ingests the reflectivity and RhoHV. Generate a surface
+image at level 0 (1000 m altitude) of the reflectivity an overplot the contours of RhoHV at 0.7.
+Hint: Use SURFACE_CONTOUR_OVERPLOT
+
+f) Add a dataset of type GRID_POINT_MEASUREMENT that ingests the reflectivity. Obtain a time series
+of the reflectivity at a point of your choice. Hint: use PLOT_AND_WRITE_POINT to plot the time
+series
+
+
+3. Quasi-vertical profiles (reference config/proc_examples/mf_odim_coll_qvp.txt)
+================================================================================
+Modify config/processing/mf_odim_coll.txt to perform these exercises
+
+a) Using QVP create a dataset to obtain the quasi vertical profile of reflectivity, ZDR, RhoHV
+and KDP using the elevation at 6°. ATTENTION: Since the 6° angle only appears every 15 min you
+have to cut the radar volume to keep only this elevation. Use TIME_RANGE of generate_vol_products
+to plot the data
+
+b) Repeat the exercise but now using range_defined Quasi-vertical profiles (rQVP). You can use
+full radar volume for this one.
+
+c) Repeat the exercise but now use an enhanced vertical profile (EVP non radar centric) at the 
+lat/lon position of your choice. Add another dataset and this time generate a TIME_HEIGHT at the
+same position. 
+
+
+4. Clutter filtering (reference config/proc_examples/mf_pam_mtcy_filter.txt)
+================================================================================
+Modify config/processing/mf_pam_mtcy_filter.txt to perform these exercises
+
+a) Generate an echo identification (echoID) field using the SAN keyword. Add the field to the radar
+objet. Hint: you will need the reflectivity, ZDR, RhoHV and PhiDP. 
+
+b) Using ECHO_FILTER, filter the polarimetric variables using the echoID field that you have
+generated. You will obtain variables dBZc, ZDRc, RhoHVc and PhiDPc. Plot each variable using a
+different dataset.
+
+
+5. Differential Phase processing and attenuation correction (reference config/proc_examples/mf_pam_mtcy_kdp.txt)
+===================================================================================
+Modify config/processing/mf_pam_mtcy_filter.txt to perform these exercises
+
+a) Using the PhiDPc and dBZc obtained in the previous exercise, get the smoothed PhiDP using
+the PHIDP_SMOOTH_1W method. Obtain the KDP from the smoothed PhiDP using the KDP_LEASTSQUARE_1W.
+You can experiment what happens when we modifiy some of the parameters such as the window length.
+
+b) Get a field of altitude with respect to the iso-0°C (H_ISO0) using ISO0_GRIB. Make it global because
+you will need it for the next exercise. Hint: The method needs to ingest an arbitrary radar field
+
+c) Correct for attenuation the reflectivity and the differential using the ZPhi method of ATTENUATION.
+Hint: The method requires dBZc, ZDRc, PhiDPc and H_ISO0 as inputs. You will get Ah, Adp, PIA and PIDA
+in addition to the reflectivity and ZDR as outputs.
+
+Bonus exercises: Experiment with other PhiDP and KDP processing methods such as PhiDP_KDP_Maesaka.
+Check the attenuation using Philin
+
+
+5. Hydrometeor classification (reference config/proc_examples/mf_odim_coll_hydro.txt)
+=====================================================================================
+Modify config/processing/mf_odim_coll.txt to perform these exercises
+
+a) Map the Météo-France hydrometeor classification into the Pyrad hydrometeor classification using
+hydroMF_to_hydro
+
+b) Use the SEMISUPERVISED method of HYDROCLASS to generate an hydrometeor classification. Hint:
+use centroids_file centroids_7671.csv. The required inputs are dBZ, ZDR, RhoHV, KDP and H_ISO0
+
+
+6. Rainfall rate estimation (reference config/proc_examples/mf_odim_coll_rr.txt)
+================================================================================
+Modify config/processing/mf_odim_coll.txt to perform these exercises
+
+a) Use the Z method of HYDROCLASS to generate a rainfall rate estimate. Hint: You can modify the
+relation R=alpha*Z^beta
+
+b) Use the RAIN_ACCU method to compute the rainfall accumulation over the period of your choice
+
+c) Repeat the exercises but now using ZKDP, ZA or hydro methods. Watch out! You may need to generate
+some fields before applying the methods
+
+
+7. Melting layer detection/VPR correction (reference config/proc_examples/mf_odim_coll_ml.txt)
+==============================================================================================
+Modify config/processing/mf_odim_coll.txt to perform these exercises
+
+a) generate a dataset of detection of the melting layer (ML_DETECTION) using the GIANGRANDE method.
+Save the time series of the melting layer using ML_TS. The function generates the field ml
+which flags the position of the range gate with respect to the melting layer. Hint: The GIANGRANDE
+method needs reflectivity, ZDR, RhoHV and H_ISO0 as inputs
+
+b) Repeat the exercise using the MF method. Do not forget to SAVE_RETRIEVED_ML to use the past
+retrievals. Hint: The retrieval uses RhoHV and H_ISO0. You will have first to filter the gates
+with clutter using the echoID obtained from hydroMF_to_SAN.
+NOTE: The retrieval is quite slow so be patient!
+
+c) Use the VPR method to retrieve the VPR and correct the reflectivity.
+NOTE: The retrieval is quite slow so be patient!
+
+Hint 1: 
+To save the average reflectivity
+SAVE_Z STRUCT 2
+    radar_type STRING radar_rhi
+    type STRING SAVEALL
+To upload it:
+    z_datatype STRING CFRADIALPYRAD:all_fields,VPR,SAVE_Z
+    
+Hint 2:
+To save the previous VPR:
+VPRtheo STRUCT 1
+    type STRING PLOT_VPR_THEO
+To upload it:
+vpr_theo_datatype STRING CSV:VPR,VPR,VPRtheo    
+
+Hint 3:
+To upload the ml top obtained using the melting layer algorithm
+ml_datatype STRING CFRADIALPYRAD:ml_h,ml_MF,SAVE_ML    
+    
+
+8. Doppler velocity (reference config/proc_examples/mf_pag_mtcy_doppler.txt)
+============================================================================
+Modify config/processing/mf_pag_mtcy.txt to perform these exercises
+
+a) Generate a VAD dataset. Get the profile using WIND_PROFILE

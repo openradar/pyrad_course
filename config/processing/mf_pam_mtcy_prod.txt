@@ -1,13 +1,14 @@
-# PRODUCT CONFIG FILE
-# Example of plotting MF PAG data in C/FRadial
+#
+# Product generation configuration
+#
 
 # List of datasets to generate.
 # The detailed specification of each dataset is given below.
-dataSetList STRARR 1
-    dBuZ_grid
-#    ZDRu
-#    uRhoHV
-#    uPhiDP
+dataSetList STRARR 4
+    dBuZ
+    ZDRu
+    uRhoHV
+    uPhiDP
 
 
 # ============================================================================
@@ -16,120 +17,35 @@ dataSetList STRARR 1
 dBuZ STRUCT 3
     type STRING RAW
     datatype STRING MFCFRADIAL:dBuZ,D{%Y-%m-%d}-F{%Y%m%d%H%M}
-    products STRUCT 4
-        PPI_EL00 STRUCT 3
+    products STRUCT 1
+        PPI_EL00_A STRUCT 3
             type STRING PPI_IMAGE
             voltype STRING dBuZ
             anglenr INT 0
-		BSCOPE_EL00 STRUCT 3
-            type STRING BSCOPE_IMAGE
-            voltype STRING dBuZ
-            anglenr INT 0
-        RHI_AZ000 STRUCT 3
-            type STRING PSEUDORHI_IMAGE
-            voltype STRING dBuZ
-            angle FLOAT 0.
-        CAPPI_2000 STRUCT 3
-            type STRING CAPPI_IMAGE
-            voltype STRING dBuZ
-            altitude FLOAT 2000.
 
 ZDRu STRUCT 3
     type STRING RAW
     datatype STRING MFCFRADIAL:ZDRu,D{%Y-%m-%d}-F{%Y%m%d%H%M}
-    products STRUCT 2
-        PPI_EL00 STRUCT 3
+    products STRUCT 1
+        PPI_EL00_A STRUCT 3
             type STRING PPI_IMAGE
             voltype STRING ZDRu
             anglenr INT 0
-		PPI_EL03 STRUCT 3
-            type STRING PPI_IMAGE
-            voltype STRING ZDRu
-            anglenr INT 3
 
 uRhoHV STRUCT 3
     type STRING RAW
     datatype STRING MFCFRADIAL:uRhoHV,D{%Y-%m-%d}-F{%Y%m%d%H%M}
-    products STRUCT 2
-        PPI_EL00 STRUCT 3
+    products STRUCT 1
+        PPI_EL00_A STRUCT 3
             type STRING PPI_IMAGE
             voltype STRING uRhoHV
             anglenr INT 0
-		PPI_EL03 STRUCT 3
-            type STRING PPI_IMAGE
-            voltype STRING uRhoHV
-            anglenr INT 3
 
 uPhiDP STRUCT 3
     type STRING RAW
     datatype STRING MFCFRADIAL:uPhiDP,D{%Y-%m-%d}-F{%Y%m%d%H%M}
-    products STRUCT 2
-        PPI_EL00 STRUCT 3
+    products STRUCT 1
+        PPI_EL00_A STRUCT 3
             type STRING PPI_IMAGE
             voltype STRING uPhiDP
             anglenr INT 0
-		PPI_EL03 STRUCT 3
-            type STRING PPI_IMAGE
-            voltype STRING uPhiDP
-            anglenr INT 3
-
-
-# ============================================================================
-#               vol2grid
-# ============================================================================
-dBuZ_grid STRUCT 11
-    type STRING VOL2GRID
-    datatype STRING MFCFRADIAL:dBuZ,D{%Y-%m-%d}-F{%Y%m%d%H%M}
-    xmin FLOAT -20000
-    xmax FLOAT  20000
-    ymin FLOAT  20000
-    ymax FLOAT  40000
-    zmin FLOAT   1000
-    zmax FLOAT   5000
-    hres FLOAT   1000
-    vres FLOAT    250
-    products STRUCT 5
-        SURFACE_l0 STRUCT 3
-            type STRING SURFACE_IMAGE
-            voltype STRING dBuZ
-            level INT 0
-        SURFACE_l0_RAW STRUCT 3
-            type STRING SURFACE_RAW
-            voltype STRING dBuZ
-            level INT 0
-        LAT STRUCT 4
-            type STRING LATITUDE_SLICE
-            voltype STRING dBuZ
-            lat FLOAT 47.7
-            lon FLOAT 6.8
-        LON STRUCT 4
-            type STRING LONGITUDE_SLICE
-            voltype STRING dBuZ
-            lat FLOAT 47.7
-            lon FLOAT 6.8
-        LATLON STRUCT 4
-            type STRING CROSS_SECTION
-            voltype STRING dBuZ
-            coord1 STRUCT 2
-                lat FLOAT 47.6
-                lon FLOAT 6.8
-            coord2 STRUCT 2
-                lat FLOAT 47.7
-                lon FLOAT 7.2
-    
-
-# ============================================================================
-#               Save data
-# ============================================================================
-# Save all data in the CFRadial or Odissey HDF5 format
-SAVEVOL STRUCT 3
-    type STRING NCVOL
-    datatype STRARR 1
-        MFCFRADIAL:dBuZ,D{%Y-%m-%d}-F{%Y%m%d%H%M} # Arbitrary moment
-    products STRUCT 1
-        NC STRUCT 2
-            type  STRING SAVEALL
-            file_type STRING nc
-        H5 STRUCT 2
-            type  STRING SAVEALL
-            file_type STRING h5

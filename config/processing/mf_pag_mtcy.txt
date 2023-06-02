@@ -1,10 +1,11 @@
-# MAIN CONFIG FILE
-# Example of plotting MF PAG data in C/FRadial
+#
+# main config file
+#
 
 # IMPORTANT: Adapt the paths to the actual location of your data and config files
 
 # call example:
-# main_process_data.py mf_pag_mtcy.txt --starttime 20210114234500 --endtime 20210114234500 --cfgpath ${PYRAD_COURSE_PATH}/config/processing/
+# main_process_data.py mf_pag_mtcy.txt --starttime 20210114100000 --endtime 20210114120000 --cfgpath ${PYRAD_COURSE_PATH}/config/processing/
 
 
 # Name of this configuration:
@@ -17,7 +18,7 @@ name STRING MF_PAG_MTCY
 
 # Base path of the raw data.
 # Note: Must have a trailing '/'
-datapath STRING ${PYRAD_COURSE_PATH}/data/MF_PAG_PAM/MTCY/
+datapath STRING ${PYRAD_COURSE_PATH}/data/MF_CFRADIAL/MTCY/
 
 # Loading of saved datasets
 loadbasepath STRING STRING ${PYRAD_COURSE_PATH}/pyrad_products/
